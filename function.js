@@ -1,4 +1,4 @@
-window.function = async function(api_key, system_prompt, message, model, temperature, max_tokens, frequency_penalty, json) {
+window.function = async function(api_key, model, name, description, instructions, tools, file_ids, temperature, json) {
   // GET VALUES FROM INPUTS, WITH DEFAULT VALUES WHERE APPLICABLE
   const apiKey = api_key.value ?? "";
   const systemPromptValue = system_prompt.value ?? "You are a helpful assistant.";
