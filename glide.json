@@ -12,33 +12,38 @@
         "type": "string"
       },
       {
-        "name": "system_prompt",
-        "displayName": "System Prompt",
-        "type": "string"
-      },
-      {
-        "name": "message",
-        "displayName": "Message (Required)",
-        "type": "string"
-      },
-      {
         "name": "model",
         "displayName": "Model",
         "type": "string"
       },
       {
+        "name": "name",
+        "displayName": "Name",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "displayName": "Description",
+        "type": "string"
+      },
+      {
+        "name": "instructions",
+        "displayName": "Instructions",
+        "type": "string"
+      },
+      {
+        "name": "tools",
+        "displayName": "Tools (comma separated)",
+        "type": "string"
+      },
+      {
+        "name": "file_ids",
+        "displayName": "Tools Resources FileIDs (comma separated)",
+        "type": "string"
+      },
+      {
         "name": "temperature",
         "displayName": "Temperature",
-        "type": "number"
-      },
-      {
-        "name": "max_tokens",
-        "displayName": "Maximum Length",
-        "type": "number"
-      },
-      {
-        "name": "frequency_penalty",
-        "displayName": "Frequency Penalty",
         "type": "number"
       },
       {
