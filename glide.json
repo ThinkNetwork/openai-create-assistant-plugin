@@ -38,7 +38,7 @@
       },
       {
         "name": "file_ids",
-        "displayName": "Tools Resources FileIDs (comma separated)",
+        "displayName": "Vector Store FileIDs (comma separated)",
         "type": "string"
       },
       {
