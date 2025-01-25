@@ -1,26 +1,24 @@
 window.function = async function(api_key, model, name, description, instructions, tools, file_ids, temperature, json) {
   // GET VALUES FROM INPUTS, WITH DEFAULT VALUES WHERE APPLICABLE
   const apiKey = api_key.value ?? "";
-  const systemPromptValue = system_prompt.value ?? "You are a helpful assistant.";
-  const messageValue = message.value ?? "";
   const modelValue = model.value ?? "gpt-4o-mini";
+  const nameValue = name.value ?? "";
+  const descriptionValue = description.value ?? "";
+  const instructionsValue = instructions.value ?? "You are a helpful assistant.";
+  const toolsValue = tools.value ?? "";
   const temperatureValue = temperature.value ?? 1.0;
-  const maxCompletionTokensValue = max_tokens.value ?? 4096;
-  const frequencyPenaltyValue = frequency_penalty.value ?? 0.0;
   const jsonValue = json.value ?? "";
 
   // INPUT VALIDATION
   if (!apiKey) {
     return "Error: API Key is required.";
   }
-  if (!messageValue) {
-    return "Error: Please enter a message.";
+  if (!nameValue) {
+    return "Error: Please enter a name.";
   }
 
   // VALIDATE NUMERICAL INPUTS WITHIN ALLOWED RANGES
   const temperatureNum = parseFloat(temperatureValue);
-  const maxCompletionTokens = parseInt(maxCompletionTokensValue);
-  const frequencyPenaltyNum = parseFloat(frequencyPenaltyValue);
 
   // VALIDATE TEMPERATURE (0 TO 2)
   if (isNaN(temperatureNum) || temperatureNum < 0 || temperatureNum > 2) {
@@ -60,16 +58,11 @@ window.function = async function(api_key, model, name, description, instructions
 
   // GET THE MAX_COMPLETION_TOKENS LIMIT FOR THE SELECTED MODEL
   const modelKey = modelValue.toLowerCase();
-  const maxCompletionTokensLimit = modelMaxCompletionTokens[modelKey] ?? 4096;
+  //const maxCompletionTokensLimit = modelMaxCompletionTokens[modelKey] ?? 4096;
 
   // VALIDATE MAXCOMPLETIONTOKENS BASED ON THE MODEL'S LIMIT
-  if (isNaN(maxCompletionTokens) || maxCompletionTokens < 1 || maxCompletionTokens > maxCompletionTokensLimit) {
-    return `Error: Maximum completion tokens must be a number between 1 and ${maxCompletionTokensLimit}.`;
-  }
-
-  // VALIDATE FREQUENCY_PENALTY (-2.0 TO 2.0)
-  if (isNaN(frequencyPenaltyNum) || frequencyPenaltyNum < -2.0 || frequencyPenaltyNum > 2.0) {
-    return "Error: Frequency penalty must be a number between -2.0 and 2.0.";
+  //if (isNaN(maxCompletionTokens) || maxCompletionTokens < 1 || maxCompletionTokens > maxCompletionTokensLimit) {
+    //return `Error: Maximum completion tokens must be a number between 1 and ${maxCompletionTokensLimit}.`;
   }
 
   // DETERMINE IF THE MODEL IS A REASONING MODEL
@@ -120,7 +113,7 @@ window.function = async function(api_key, model, name, description, instructions
       finalMessageValue += `\n\n${jsonMessage}`;
     }
     payload.messages = [
-      { role: 'system', content: systemPromptValue },
+      { role: 'system', content: instructionsValue },
       { role: 'user', content: finalMessageValue }
     ];
     payload.temperature = temperatureNum;
@@ -130,11 +123,12 @@ window.function = async function(api_key, model, name, description, instructions
 
   // PERFORM POST REQUEST TO OPENAI
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/assistants', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Bearer ${apiKey}`,
+        'OpenAI-Beta': 'assistants=v2'
       },
       body: JSON.stringify(payload)
     });
