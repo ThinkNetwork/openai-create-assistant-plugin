@@ -2,8 +2,8 @@
   {
     "kind": "column",
     "name": "OpenAI (Text Generation)",
-    "description": "Generate text with OpenAI. If you want to level-up your Glide skills for free, head to https://loqode.com 🚀",
-    "author": "Marco Volpato <marco@loqode.com>",
+    "description": "Generate text with OpenAI.",
+    "author": "Gavin Horne <gavin@thinknetwork.com.au>",
     "params": [
       {
         "name": "api_key",
