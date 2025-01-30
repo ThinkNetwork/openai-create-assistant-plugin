@@ -1,17 +1,13 @@
-window.function = async function(api_key, model, name, description, instructions, tools, file_ids, temperature, top_p, metadata, response_format) {
-    // Validate API Key
-    if (!api_key.value) {
-        return "Error: API Key is required.";
-    }
-
-    // Validate required fields
-    if (!name.value) {
-        return "Error: Assistant name is required.";
-    }
+window.function = async function(api_key, model, name, instructions, tools, file_ids, temperature, top_p, metadata, response_format) {
+    // Required field validation
+    if (!api_key.value) return "Error: OpenAI API Key is required.";
+    if (!model.value) return "Error: Model is required.";
+    if (!name.value) return "Error: Assistant name is required.";
+    if (!instructions.value) return "Error: Instructions are required.";
 
     // Parse inputs with default values
-    const modelValue = model.value || "gpt-4o";
-    const instructionsValue = instructions.value || "You are a helpful assistant.";
+    const modelValue = model.value;
+    const instructionsValue = instructions.value;
     const toolsValue = tools.value ? tools.value.split(",").map(t => ({ type: t.trim() })) : [];
     const fileIdsValue = file_ids.value ? file_ids.value.split(",").map(id => id.trim()) : [];
     const temperatureValue = temperature.value ?? 1.0;
@@ -33,7 +29,6 @@ window.function = async function(api_key, model, name, description, instructions
     const payload = {
         model: modelValue,
         name: name.value,
-        description: description.value || null,
         instructions: instructionsValue,
         tools: toolsValue,
         tool_resources: toolResources,
