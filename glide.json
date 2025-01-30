@@ -17,17 +17,12 @@
       },
       {
         "name": "name",
-        "displayName": "Name",
-        "type": "string"
-      },
-      {
-        "name": "description",
-        "displayName": "Description",
+        "displayName": "Name (Required)",
         "type": "string"
       },
       {
         "name": "instructions",
-        "displayName": "Instructions",
+        "displayName": "Instructions (Required)",
         "type": "string"
       },
       {
