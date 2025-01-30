@@ -3,7 +3,7 @@
     "kind": "column",
     "name": "OpenAI (Text Generation)",
     "description": "Generate text with OpenAI.",
-    "author": "Gavin Horne <gavin@thinknetwork.com.au>",
+    "author": "Your Name <your.email@example.com>",
     "params": [
       {
         "name": "api_key",
@@ -12,7 +12,7 @@
       },
       {
         "name": "model",
-        "displayName": "Model",
+        "displayName": "Model (Required)",
         "type": "string"
       },
       {
@@ -37,7 +37,7 @@
       },
       {
         "name": "file_ids",
-        "displayName": "Vector Store FileIDs (comma separated)",
+        "displayName": "Vector Store File IDs (comma separated)",
         "type": "string"
       },
       {
@@ -46,8 +46,18 @@
         "type": "number"
       },
       {
-        "name": "json",
-        "displayName": "JSON Schema (Output)",
+        "name": "top_p",
+        "displayName": "Top P",
+        "type": "number"
+      },
+      {
+        "name": "metadata",
+        "displayName": "Metadata (JSON format)",
+        "type": "string"
+      },
+      {
+        "name": "response_format",
+        "displayName": "Response Format",
         "type": "string"
       }
     ],
