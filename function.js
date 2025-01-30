@@ -1,4 +1,4 @@
-window.function = async function(api_key, model, name, description, instructions, tools, file_ids, temperature) {
+window.function = async function(api_key, model, name, description, instructions, tools, file_ids, temperature, top_p, metadata, response_format) {
     // Validate API Key
     if (!api_key.value) {
         return "Error: API Key is required.";
@@ -9,12 +9,15 @@ window.function = async function(api_key, model, name, description, instructions
         return "Error: Assistant name is required.";
     }
 
-    // Parse inputs
+    // Parse inputs with default values
     const modelValue = model.value || "gpt-4o";
     const instructionsValue = instructions.value || "You are a helpful assistant.";
     const toolsValue = tools.value ? tools.value.split(",").map(t => ({ type: t.trim() })) : [];
     const fileIdsValue = file_ids.value ? file_ids.value.split(",").map(id => id.trim()) : [];
     const temperatureValue = temperature.value ?? 1.0;
+    const topPValue = top_p.value ?? 1.0;
+    const metadataValue = metadata.value ? JSON.parse(metadata.value) : {};
+    const responseFormatValue = response_format.value || "auto";
 
     // Construct tool_resources only if file IDs exist
     let toolResources = {};
@@ -34,7 +37,10 @@ window.function = async function(api_key, model, name, description, instructions
         instructions: instructionsValue,
         tools: toolsValue,
         tool_resources: toolResources,
-        temperature: temperatureValue
+        temperature: temperatureValue,
+        top_p: topPValue,
+        metadata: metadataValue,
+        response_format: responseFormatValue
     };
 
     // Make API request
